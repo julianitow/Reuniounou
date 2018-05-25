@@ -55,7 +55,7 @@ class UserController extends Controller
         try
         {
             $manager->flush();
-            //return $this->redirectToRoute('connexion');
+            return $this->redirectToRoute('connexion');
         }
         catch (PDOException $e)
         {
@@ -71,7 +71,7 @@ class UserController extends Controller
   }
 
   /**
-   * @Route("/connexion")
+   * @Route("/connexion", name="connexion")
    */
   public function connexionAction()
   {
