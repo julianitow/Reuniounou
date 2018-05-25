@@ -53,7 +53,7 @@ class Utilisateur implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="MotDePasseClair", type="string", length=255)
+     * @ORM\Column(name="MotDePasseClair", type="string", length=255, nullable = true)
      */
     private $motDePasseClair;
 
