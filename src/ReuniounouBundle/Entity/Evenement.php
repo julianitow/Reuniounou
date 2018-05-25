@@ -52,6 +52,13 @@ class Evenement
     /**
      * @var string
      *
+     * @ORM\Column(name="ville", type="string", length=50)
+     */
+    private $ville;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="tokenInvitation", type="string", length=255)
      */
     private $tokenInvitation;
