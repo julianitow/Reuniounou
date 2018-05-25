@@ -44,13 +44,13 @@ class UserController extends Controller
         //HASHAGE
         $passwordEncoder = $this->get('security.password_encoder');
         $motDePasse = $passwordEncoder->encodePassword($user, $user->getMotDePasseClair());
-        $user->setMotDePasse($motDePasse);
+        $user->setPassword($motDePasse);
         $manager = $this->getDoctrine()->getManager();
-        $repositoryUsers = $manager->getRepository('ApplicationBundle:Utilisateur');
+        $repositoryUsers = $manager->getRepository('ReuniounouBundle:Utilisateur');
         try
         {
             $manager->flush();
-            return $this->redirectToRoute('connexion');
+            //return $this->redirectToRoute('connexion');
         }
         catch (PDOException $e)
         {
@@ -60,10 +60,10 @@ class UserController extends Controller
         {
             $error = "UniqueConstraintViolationException";
         }
+    }
 
     return $this->render('@Reuniounou/User/inscription.html.twig', ['form'=> $form->createView(), 'error'=> $error]);
   }
-}
 
   /**
    * @Route("/connexion")
