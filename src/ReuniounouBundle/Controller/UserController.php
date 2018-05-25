@@ -2,7 +2,6 @@
 
 namespace ReuniounouBundle\Controller;
 
-use ReuniounouBundle\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use ReuniounouBundle\Entity\Utilisateur;
