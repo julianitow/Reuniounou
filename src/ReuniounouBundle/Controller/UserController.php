@@ -4,6 +4,18 @@ namespace ReuniounouBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use ReuniounouBundle\Entity\Utilisateur;
+use Doctrine\ORM\NoResultException;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -11,10 +23,47 @@ class UserController extends Controller
   /**
    * @Route("/inscription")
    */
-  public function inscriptionAction()
+  public function inscriptionAction(Request $request)
   {
-    return $this->render('@Reuniounou/User/inscription.html.twig');
+    $error = null;
+    $user = new Utilisateur();
+    $date = new \DateTime();
+    $date->format('\O\n Y-m-d');
+    $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $user);
+    $formBuilder
+        ->add('nom', TextType::class, ['label'=> false, 'attr' => ['placeholder'=> "Nom"]])
+        ->add('prenom', TextType::class, ['label'=> false, 'attr' => ['placeholder'=> "Prenom"]])
+        ->add('email', EmailType::class, ['label'=> false, 'attr' => ['placeholder'=> "Adresse e-mail"]])
+        ->add('MotDePasseClair', RepeatedType::class, ['type' => PasswordType::class, 'first_options' => ['label'=> "Mot de passe", 'attr' => ['placeholder' => "Mot de Passe"]], 'second_options' => ['label'=> "Répetez mot de passe", 'attr' => ['placeholder' => "Vérification"]]])
+        ->add('Inscription', SubmitType::class, ['attr' => ['class'=> 'btn btn-primary']] );
+    $form = $formBuilder->getForm();
+    $form->handleRequest($request);
+    if($form->isSubmitted() && $form->isValid())
+    {
+        $user = $form->getData();
+        //HASHAGE
+        $passwordEncoder = $this->get('security.password_encoder');
+        $motDePasse = $passwordEncoder->encodePassword($user, $user->getMotDePasseClair());
+        $user->setMotDePasse($motDePasse);
+        $manager = $this->getDoctrine()->getManager();
+        $repositoryUsers = $manager->getRepository('ApplicationBundle:Utilisateur');
+        try
+        {
+            $manager->flush();
+            return $this->redirectToRoute('connexion');
+        }
+        catch (PDOException $e)
+        {
+            $error = "UniqueConstraintViolationException";
+        }
+        catch (UniqueConstraintViolationException $e)
+        {
+            $error = "UniqueConstraintViolationException";
+        }
+
+    return $this->render('@Reuniounou/User/inscription.html.twig', ['form'=> $form->createView(), 'error'=> $error]);
   }
+}
 
   /**
    * @Route("/connexion")
