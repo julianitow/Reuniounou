@@ -49,6 +49,13 @@ class Utilisateur
      */
     private $email;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="MotDePasseClair", type="string", length=255)
+     */
+    private $motDePasseClair;
+
 
     /**
      * Get id
@@ -109,6 +116,28 @@ class Utilisateur
     }
 
     /**
+    * Set motDePasse
+    *
+    * @param string $motDePasseClair
+    *
+    * @return utilisateur
+    */
+   public function setMotDePasseClair($motDePasseClair)
+   {
+       $this->motDePasseClair = $motDePasseClair;
+       return $this;
+   }
+   /**
+    * Get motDePasseClair
+    *
+    * @return string
+    */
+   public function getMotDePasseClair()
+   {
+       return $this->motDePasseClair;
+   }
+
+    /**
      * Set password
      *
      * @param string $password
@@ -156,4 +185,3 @@ class Utilisateur
         return $this->email;
     }
 }
-
