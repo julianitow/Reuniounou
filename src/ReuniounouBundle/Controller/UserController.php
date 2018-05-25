@@ -38,6 +38,7 @@ class UserController extends Controller
         ->add('Inscription', SubmitType::class, ['attr' => ['class'=> 'btn btn-primary']] );
     $form = $formBuilder->getForm();
     $form->handleRequest($request);
+
     if($form->isSubmitted() && $form->isValid())
     {
         $user = $form->getData();
@@ -45,8 +46,12 @@ class UserController extends Controller
         $passwordEncoder = $this->get('security.password_encoder');
         $motDePasse = $passwordEncoder->encodePassword($user, $user->getMotDePasseClair());
         $user->setPassword($motDePasse);
+        $user->setMotDePasseClair(null);
         $manager = $this->getDoctrine()->getManager();
         $repositoryUsers = $manager->getRepository('ReuniounouBundle:Utilisateur');
+
+        $manager->persist($user);
+
         try
         {
             $manager->flush();
@@ -120,4 +125,14 @@ class UserController extends Controller
       }
       return $this->render('@Reuniounou/User/connexion.html.twig', ['form'=> $form->createView(), 'utilisateur' => $user, 'error' => $error]);
   }
+
+  /**
+   * @Route("/deconnexion")
+   */
+  public function deconnexionAction()
+  {
+    return $this->render('@Reuniounou/User/deconnexion.html.twig');
+  }
+
+
 }
