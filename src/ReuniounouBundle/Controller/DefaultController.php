@@ -12,6 +12,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('ReuniounouBundle:Default:index.html.twig');
+        return $this->render('@Reuniounou/Default/index.html.twig');
     }
 }
