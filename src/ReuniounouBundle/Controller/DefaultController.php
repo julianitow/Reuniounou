@@ -33,13 +33,6 @@ class DefaultController extends Controller
             $error = null;
         }
 
-        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $evenement);
-        $formBuilder
-            ->add('Créer Evènement', SubmitType::class, ['attr' => ['label'=>'creer', 'class'=> 'btn btn-primary', "id" => "creer"]] )
-            ->add('Gérer Evènement(s)', SubmitType::class, ['attr' => ['class'=> 'btn btn-primary']] );
-        $form = $formBuilder->getForm();
-        $form->handleRequest($request);
-
-        return $this->render('@Reuniounou/Default/index.html.twig', ['form'=> $form->createView(), 'prenom' => $prenom, 'error'=> $error]);
+        return $this->render('@Reuniounou/Default/index.html.twig', ['prenom' => $prenom, 'error'=> $error]);
     }
 }
