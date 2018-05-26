@@ -2,6 +2,7 @@
 
 namespace ReuniounouBundle\Repository;
 
+
 /**
  * UtilisateurRepository
  *
@@ -10,4 +11,28 @@ namespace ReuniounouBundle\Repository;
  */
 class UtilisateurRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function findByEmail($email)
+    {
+        $qb = $this->_em->createQueryBuilder('u');
+
+        $qb ->select('u.password')
+            ->from('ReuniounouBundle:Utilisateur', 'u')
+            ->where('u.email = :email')
+            //->andWhere('u.motDePasse = :motDePasse')
+            ->setParameter('email', $email);
+            //->setParameter('motDePasse', $motDePasse);
+
+        $requete = $qb->getQuery();
+
+        try
+        {
+            $result = $requete->getSingleResult();
+        }
+        catch (\Doctrine\ORM\NoResultException $e)
+        {
+            $result = "NoResultException";
+        }
+
+        return $result;
+    }
 }
