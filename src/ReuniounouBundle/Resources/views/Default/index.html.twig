@@ -58,17 +58,19 @@
 
 		<div class="form-signin" id="form">
       {% if prenom != null %}
-        <h3 class="form-signin-heading">Bienvenue {{ prenom }}</h3>
+        <center><h3 class="form-signin-heading">Bienvenue {{ prenom }}</h3></center><br>
+            
 			{% else %}
-        <h3 class="form-signin-heading">Bienvenue</h3>
+        <center><h3 class="form-signin-heading">Bienvenue</h3></center><br>
+            <p>Bienvenue sur l'application originale Reunionou ! <br>Tu désires créer ton évènement et ramener tous tes potes ? C'est facile.<br> Il te suffit de t'inscrire ou te connecter si c'est déjà fait.<br> Tu n'en as pas envie ? Alors tu peux simplement consulter les évènements ;)</p>
       {% endif %}
-
+            <br>
 			<center>
         {% if id != null %}
-      		<a class="btn btn-primary" href="event/create">Creer</a>
-          <a class="btn btn-primary" href="/event/{token}">Gérer</a>
+      		<a class="btn btn-primary" href="event/create">Créer un événement</a>
+          <a class="btn btn-primary" href="/event/{token}">Consulter les événements</a>
         {% else %}
-          <a class="btn btn-primary" href="/event/{token}">Gérer</a>
+          <a class="btn btn-primary" href="/event/{token}">Consulter les événements</a>
         {% endif %}
 
 
