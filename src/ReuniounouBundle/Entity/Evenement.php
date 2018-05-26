@@ -64,6 +64,13 @@ class Evenement
     private $tokenInvitation;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="private", type="boolean")
+     */
+    private $private;
+
+    /**
      * @var utilisateur
      *
      * @ORM\ManyToOne(targetEntity="ReuniounouBundle\Entity\Utilisateur")
@@ -279,5 +286,29 @@ class Evenement
     public function getParticipants()
     {
         return $this->participants;
+    }
+
+    /**
+     * Set private
+     *
+     * @param boolean $private
+     *
+     * @return Evenement
+     */
+    public function setPrivate($private)
+    {
+        $this->private = $private;
+
+        return $this;
+    }
+
+    /**
+     * Get private
+     *
+     * @return boolean
+     */
+    public function getPrivate()
+    {
+        return $this->private;
     }
 }
