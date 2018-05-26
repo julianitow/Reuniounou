@@ -33,10 +33,10 @@ class UserController extends Controller
     $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $user);
     $formBuilder
         ->add('nom', TextType::class, ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder'=> "Nom"]])
-        ->add('prenom', TextType::class, ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder'=> "Prenom"]])
+        ->add('prenom', TextType::class, ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder'=> "Prénom"]])
         ->add('email', EmailType::class, ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder'=> "Adresse e-mail"]])
-        ->add('MotDePasseClair', RepeatedType::class, ['type' => PasswordType::class, 'first_options' => ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder' => "Mot de Passe"]], 'second_options' => ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder' => "Vérification"]]])
-        ->add('Inscription', SubmitType::class, ['attr' => ['class'=> 'btn btn-primary']] );
+        ->add('MotDePasseClair', RepeatedType::class, ['type' => PasswordType::class, 'first_options' => ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder' => "Mot de Passe"]], 'second_options' => ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder' => "Confirmation mot de passe"]]])
+        ->add('Valider', SubmitType::class, ['attr' => ['class'=> 'btn btn-primary']] );
     $form = $formBuilder->getForm();
     $form->handleRequest($request);
 
@@ -94,8 +94,10 @@ class UserController extends Controller
           $repositoryUsers = $manager->getRepository('ReuniounouBundle:Utilisateur');
           //VERIFICATION HASH PASSWORD
           $passwordEncoder = $this->container->get('security.password_encoder');
+
           //Récupération du mit de passe crypté
           $hashedPassword = $repositoryUsers->findByEmail($user->getEmail());
+
           //verification du resultat de la requete
           if ($hashedPassword != "NoResultException")
           {

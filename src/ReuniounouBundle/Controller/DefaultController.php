@@ -40,6 +40,6 @@ class DefaultController extends Controller
         $form = $formBuilder->getForm();
         $form->handleRequest($request);
 
-        return $this->render('@Reuniounou/Default/index.html.twig', ['form'=> $form->createView(), 'error'=> $error]);
+        return $this->render('@Reuniounou/Default/index.html.twig', ['form'=> $form->createView(), 'prenom' => $prenom, 'error'=> $error]);
     }
 }
