@@ -1,4 +1,5 @@
 {% extends "@Reuniounou/Default/template.html.twig" %}
+
 {% block body %}
 
     <link href="{{ asset('css/signup.css') }}" rel="stylesheet">
@@ -12,10 +13,13 @@
 
             <h2 class="form-signup-heading">Inscription</h2>
 
-            {{ form_start(form) }}
+            {{ form_start(form) }}<br>
+            <center>
             {{ form_widget(form) }}
+            </center>
             {{ form_end(form) }}
 
         </div>
     </div>
+
 {% endblock %}

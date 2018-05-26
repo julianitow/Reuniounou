@@ -36,7 +36,7 @@ class UserController extends Controller
         ->add('prenom', TextType::class, ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder'=> "Prénom"]])
         ->add('email', EmailType::class, ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder'=> "Adresse e-mail"]])
         ->add('MotDePasseClair', RepeatedType::class, ['type' => PasswordType::class, 'first_options' => ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder' => "Mot de Passe"]], 'second_options' => ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder' => "Confirmation mot de passe"]]])
-        ->add('Inscription', SubmitType::class, ['attr' => ['class'=> 'btn btn-primary']] );
+        ->add('Valider', SubmitType::class, ['attr' => ['class'=> 'btn btn-primary']] );
     $form = $formBuilder->getForm();
     $form->handleRequest($request);
 
