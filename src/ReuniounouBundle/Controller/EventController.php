@@ -67,7 +67,7 @@ class EventController extends Controller
     /**
      * @Route("/event/{token}", name="show_event")
      */
-    public function showAction(Requet $request, $token) {
+    public function showAction(Request $request, $token) {
         $session = $request->getSession();
         $id = $session->get('id');
         $manager = $this->getDoctrine()->getManager();
