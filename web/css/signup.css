@@ -19,14 +19,26 @@
     box-sizing: border-box;
     padding: 10px;
     font-size: 14px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 .form-signup .form-control:focus {
     z-index: 2;
 }
+.form-signup input[type="nom"] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+}
+
 .form-signup input[type="email"] {
     margin-bottom: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 .form-signup input[type="password"] {
-    margin-top: -14px;
+    /*margin-top: -1px;*/
     margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
