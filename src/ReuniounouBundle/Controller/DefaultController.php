@@ -20,7 +20,6 @@ class DefaultController extends Controller
         $session = $request->getSession();
         $id = $session->get('id');
         $prenom = $session->get('prenom');
-
         //VERIFICATION DE CONNEXION
         if ($id == null)
         {
