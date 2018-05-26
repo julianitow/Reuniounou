@@ -11,7 +11,7 @@ namespace ReuniounouBundle\Repository;
  */
 class UtilisateurRepository extends \Doctrine\ORM\EntityRepository
 {
-  public function findByEmail($email)
+    public function findByEmail($email)
     {
         $qb = $this->_em->createQueryBuilder('u');
 

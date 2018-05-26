@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserController extends Controller
@@ -93,8 +94,10 @@ class UserController extends Controller
           $repositoryUsers = $manager->getRepository('ReuniounouBundle:Utilisateur');
           //VERIFICATION HASH PASSWORD
           $passwordEncoder = $this->container->get('security.password_encoder');
-          //Récupération du mot de passe crypté
-          $hashedPassword = $repositoryUsers->findByEmail($user->getEmail()/*, $user->getMotDePasseClair()*/);
+
+          //Récupération du mit de passe crypté
+          $hashedPassword = $repositoryUsers->findByEmail($user->getEmail());
+
           //verification du resultat de la requete
           if ($hashedPassword != "NoResultException")
           {

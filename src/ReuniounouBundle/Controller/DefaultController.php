@@ -13,7 +13,7 @@ use ReuniounouBundle\Entity\Evenement;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name ="application_homepage")
+     * @Route("/", name="application_homepage")
      */
     public function indexAction(Request $request)
     {
