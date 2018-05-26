@@ -21,18 +21,9 @@ class DefaultController extends Controller
         $session = $request->getSession();
         $id = $session->get('id');
         $prenom = $session->get('prenom');
+        $error = null;
 
         //VERIFICATION DE CONNEXION
-        if ($id == null)
-        {
-            $error = "ConnexionNeeded";
-            return $this->redirect("connexion", 308);
-        }
-        else
-        {
-            $error = null;
-        }
-
         return $this->render('@Reuniounou/Default/index.html.twig', ['prenom' => $prenom, 'error'=> $error]);
     }
 }
