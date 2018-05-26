@@ -61,13 +61,15 @@ class EventController extends Controller
                 $error = "UniqueConstraintViolationException";
             }
         }
-        return $this->render('@Reuniounou/Event/create.html.twig', ['form'=> $form->createView(), 'error'=> $error]);
+        return $this->render('@Reuniounou/Event/create.html.twig', ['form'=> $form->createView(), 'id' => $id, 'error'=> $error]);
     }
 
     /**
      * @Route("/event/{token}", name="show_event")
      */
-    public function showAction($token) {
+    public function showAction(Requet $request, $token) {
+        $session = $request->getSession();
+        $id = $session->get('id');
         $manager = $this->getDoctrine()->getManager();
         $repositoryEvents = $manager->getRepository('ReuniounouBundle:Evenement');
         $event = $repositoryEvents->findOneByTokenInvitation($token);
@@ -76,7 +78,8 @@ class EventController extends Controller
         }
         return $this->render('@Reuniounou/Event/show.html.twig', [
             'event' => $event,
-            'visibility' => $visibility
+            'visibility' => $visibility,
+            'id' => $id
         ]);
     }
 
