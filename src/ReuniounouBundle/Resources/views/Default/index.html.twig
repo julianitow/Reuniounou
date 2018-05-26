@@ -1,2 +1,18 @@
-Hello World!
-fvaegatg
+<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+<style>
+  .form-control
+  {
+    padding-top: 3px;
+  }
+</style>
+{% block body %}
+	{% if error != null %}
+		{{ erreur }}
+	{% endif %}
+<div class="container">
+  {{ form_start(form) }}
+  {{ form_widget(form) }}
+  {{ form_end(form) }}
+</div>
+
+{% endblock %}

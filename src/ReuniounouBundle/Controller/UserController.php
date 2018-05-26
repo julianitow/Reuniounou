@@ -15,7 +15,6 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserController extends Controller
@@ -128,9 +127,9 @@ class UserController extends Controller
   }
 
   /**
-   * @Route("/deconnexion")
+   * @Route("/deconnexion", name="deconnexion")
    */
-  public function deconnexionAction()
+  public function deconnexionAction(Request $request)
   {
     $session = $request->getSession();
     $session->invalidate();
