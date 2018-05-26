@@ -64,6 +64,6 @@ class EventController extends Controller
      * @Route("/event/{}", name="show_event")
      */
     public function showAction($token) {
-
+        // lalala
     }
 }
