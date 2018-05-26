@@ -3,7 +3,7 @@
     {% if event %}
         <h2>{{ event.titre }}</h2>
         <p>{{ event.description | nl2br }}</p>
-        <p>Se déroule le {{ event.date.format('d/m/Y H:i') }}</p>
+        <p>Se déroule le {{ event.date.format('d/m/Y H:i') }}<br>Evenement {{ visibility }}</p>
         <p class="text-muted">{{ event.utilisateur.prenom }} {{ event.utilisateur.nom }}</p>
     {% else %}
         <h2>Evenement non trouvé</h2>
