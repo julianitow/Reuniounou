@@ -1,11 +1,15 @@
 {% extends "@Reuniounou/Default/template.html.twig" %}
 {% block body %}
+<div class="container">
+    <div class="jumbotron">
     {% if event %}
-        <h2>{{ event.titre }}</h2>
+        <center><h2>{{ event.titre }}</h2></center>
         <p>{{ event.description | nl2br }}</p>
         <p>Se déroule le {{ event.date.format('d/m/Y H:i') }}<br>Evenement {{ visibility }}</p>
         <p class="text-muted">{{ event.utilisateur.prenom }} {{ event.utilisateur.nom }}</p>
     {% else %}
         <h2>Evenement non trouvé</h2>
     {% endif %}
+    	</div>
+	</div>
 {% endblock %}
