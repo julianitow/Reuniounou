@@ -1,18 +1,44 @@
+{% extends "@Reuniounou/Default/template.html.twig" %}
+
+{% block body %}
+
 <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+
 <style>
+
   .form-control
   {
-    padding-top: 3px;
+    padding-top: 40px;
+	padding-bottom: 40px;
   }
+
 </style>
-{% block body %}
+
+
 	{% if error != null %}
 		{{ erreur }}
 	{% endif %}
-<div class="container">
-  {{ form_start(form) }}
-  {{ form_widget(form) }}
-  {{ form_end(form) }}
+
+<div class="container-fluid">
+
+	<title class="badge-light">REUNIONOU - connexion</title>
+
+	<div class="container-fluid">
+
+		<div class="form-signin" id="form">
+
+			<h1 style="text-align:center"> REUNIONOU </h1><br>
+
+			<h3 class="form-signin-heading">Bienvenue {{ prenom }}</h3>
+
+			<center>
+            	{{ form_start(form) }}
+            	{{ form_widget(form) }}
+            	{{ form_end(form) }}
+			</center>
+
+		</div>
+	</div>
 </div>
 
 {% endblock %}
