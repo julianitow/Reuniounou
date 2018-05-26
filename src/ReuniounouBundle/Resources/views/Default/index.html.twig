@@ -14,11 +14,6 @@
 
 </style>
 
-
-	{% if error != null %}
-		{{ erreur }}
-	{% endif %}
-
 <div class="container-fluid">
 
 	<title class="badge-light">REUNIONOU - Index</title>
@@ -29,11 +24,21 @@
 
 			<h1 style="text-align:center"> REUNIONOU </h1><br>
 
-			<h3 class="form-signin-heading">Bienvenue {{ prenom }}</h3>
+      {% if prenom != null %}
+        <h3 class="form-signin-heading">Bienvenue {{ prenom }}</h3>
+			{% else %}
+        <h3 class="form-signin-heading">Bienvenue</h3>
+      {% endif %}
 
 			<center>
-            	<a class="btn btn-primary" href="event/create">Creer</a>
-            	
+        {% if id != null %}
+      		<a class="btn btn-primary" href="event/create">Creer</a>
+          <a class="btn btn-primary" href="">Gérer</a>
+        {% else %}
+          <a class="btn btn-primary" href="">Gérer</a>
+        {% endif %}
+
+
 			</center>
 
 		</div>
