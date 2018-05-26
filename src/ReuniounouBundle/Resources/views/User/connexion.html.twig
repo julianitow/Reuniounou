@@ -1,25 +1,39 @@
 {% extends "@Reuniounou/Default/template.html.twig" %}
+
 {% block body %}
-    <title>MONEYTORING - connexion</title>
-    <div class="container">
+
+    <title class="badge-light">REUNIONOU - connexion</title>
+
+    <div class="container-fluid">
+
         <div class="form-signin" id="form">
+
+            <h1 style="text-align:center"> REUNIONOU </h1><br>
+
             <h2 class="form-signin-heading">Connexion</h2>
 
             {% if error == "NoResultException" %}
+
                 <div class="alert alert-danger">
                     Identifiant ou mot de passe incorrect
                 </div>
 
             {% elseif error == "NoError" %}
+
                 <div class="alert alert-success">
                     Connexion réussie
                 </div>
+
             {% endif %}
 
-            {{ form_start(form) }}
+            {{ form_start(form) }}<br>
+            <center>
             {{ form_widget(form) }}
-            {{ form_end(form) }}
+            </center>
+            {{ form_end(form) }}<br>
+
             <a href="inscription">Pas encore des notres ?</a>
+
         </div>
     </div>
 {% endblock %}
