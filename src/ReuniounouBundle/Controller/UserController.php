@@ -22,7 +22,7 @@ class UserController extends Controller
 {
 
   /**
-   * @Route("/inscription")
+   * @Route("/inscription", name="inscription")
    */
   public function inscriptionAction(Request $request)
   {

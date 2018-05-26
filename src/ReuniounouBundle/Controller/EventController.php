@@ -3,6 +3,7 @@
 namespace ReuniounouBundle\Controller;
 
 use ReuniounouBundle\Entity\Evenement;
+use ReuniounouBundle\Repository\EvenementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -41,7 +42,9 @@ class EventController extends Controller
             $repositoryUsers = $manager->getRepository('ReuniounouBundle:Utilisateur');
             $user = $repositoryUsers->findOneById($id);
             $event->setUtilisateur($user);
-            $event->setTokenInvitation(base64_encode(random_bytes(10)));
+            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+            $token = substr($tokenGenerator->generateToken(), 0, 12);
+            $event->setTokenInvitation($token);
             $manager->persist($event);
 
             try
@@ -61,9 +64,14 @@ class EventController extends Controller
     }
 
     /**
-     * @Route("/event/{}", name="show_event")
+     * @Route("/event/{token}", name="show_event")
      */
     public function showAction($token) {
-        // lalala
+        $manager = $this->getDoctrine()->getManager();
+        $repositoryEvents = $manager->getRepository('ReuniounouBundle:Evenement');
+        $event = $repositoryEvents->findOneByTokenInvitation($token);
+        return $this->render('@Reuniounou/Event/show.html.twig', [
+            'event' => $event
+        ]);
     }
 }

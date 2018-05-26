@@ -17,13 +17,19 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $evenement = new Evenement;
         $session = $request->getSession();
         $id = $session->get('id');
         $prenom = $session->get('prenom');
-        $error = null;
-
         //VERIFICATION DE CONNEXION
-        return $this->render('@Reuniounou/Default/index.html.twig', ['prenom' => $prenom, 'error'=> $error]);
+        if ($id == null)
+        {
+            $error = "ConnexionNeeded";
+        }
+        else
+        {
+            $error = null;
+        }
+
+        return $this->render('@Reuniounou/Default/index.html.twig', ['prenom' => $prenom, 'id' => $id, 'error'=> $error]);
     }
 }
