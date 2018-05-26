@@ -3,7 +3,6 @@
     <title>MONEYTORING - connexion</title>
     <div class="container">
         <div class="form-signin" id="form">
-            <img src="{{ asset('pictures/logo1texte.PNG') }}" class="img-fluid" >
             <h2 class="form-signin-heading">Connexion</h2>
 
             {% if error == "NoResultException" %}
@@ -21,7 +20,6 @@
             {{ form_widget(form) }}
             {{ form_end(form) }}
             <a href="inscription">Pas encore des notres ?</a>
-            <a href="reinitialisation">Mot de passe oublié ?</a>
         </div>
     </div>
 {% endblock %}

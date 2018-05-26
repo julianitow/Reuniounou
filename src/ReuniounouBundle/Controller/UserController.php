@@ -32,10 +32,10 @@ class UserController extends Controller
     $date->format('\O\n Y-m-d');
     $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $user);
     $formBuilder
-        ->add('nom', TextType::class, ['label'=> false, 'attr' => ['placeholder'=> "Nom"]])
-        ->add('prenom', TextType::class, ['label'=> false, 'attr' => ['placeholder'=> "Prenom"]])
-        ->add('email', EmailType::class, ['label'=> false, 'attr' => ['placeholder'=> "Adresse e-mail"]])
-        ->add('MotDePasseClair', RepeatedType::class, ['type' => PasswordType::class, 'first_options' => ['label'=> "Mot de passe", 'attr' => ['placeholder' => "Mot de Passe"]], 'second_options' => ['label'=> "Répetez mot de passe", 'attr' => ['placeholder' => "Vérification"]]])
+        ->add('nom', TextType::class, ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder'=> "Nom"]])
+        ->add('prenom', TextType::class, ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder'=> "Prenom"]])
+        ->add('email', EmailType::class, ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder'=> "Adresse e-mail"]])
+        ->add('MotDePasseClair', RepeatedType::class, ['type' => PasswordType::class, 'first_options' => ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder' => "Mot de Passe"]], 'second_options' => ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder' => "Vérification"]]])
         ->add('Inscription', SubmitType::class, ['attr' => ['class'=> 'btn btn-primary']] );
     $form = $formBuilder->getForm();
     $form->handleRequest($request);
@@ -56,7 +56,7 @@ class UserController extends Controller
         try
         {
             $manager->flush();
-            //return $this->redirectToRoute('connexion');
+            return $this->redirectToRoute('connexion');
         }
         catch (PDOException $e)
         {
@@ -72,7 +72,7 @@ class UserController extends Controller
   }
 
   /**
-   * @Route("/connexion")
+   * @Route("/connexion", name="connexion")
    */
   public function connexionAction(Request $request)
   {
@@ -81,8 +81,8 @@ class UserController extends Controller
       $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $user); // Initisalisation du form builder
       //CREATION DU FORMULAIRE
       $formBuilder
-          ->add('email', EmailType::class, ['label'=> false, 'attr' => ['placeholder' => "Adresse e-mail"]])
-          ->add('motDePasseClair', PasswordType::class, ['label'=> false, 'attr' => ['placeholder' => "Mot de Passe"]])
+          ->add('email', EmailType::class, ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder' => "Adresse e-mail"]])
+          ->add('motDePasseClair', PasswordType::class, ['label'=> false, 'attr' => ['class' => "form-control", 'placeholder' => "Mot de Passe"]])
           ->add('Se connecter', SubmitType::class, ['attr' => ['class'=> 'btn btn-primary']]);
       $form = $formBuilder->getForm();
       $form->handleRequest($request);
@@ -128,11 +128,13 @@ class UserController extends Controller
   }
 
   /**
-   * @Route("/deconnexion")
+   * @Route("/deconnexion", name="deconnexion")
    */
-  public function deconnexionAction()
+  public function deconnexionAction(Request $request)
   {
-    return $this->render('@Reuniounou/User/deconnexion.html.twig');
+    $session = $request->getSession();
+    $session->invalidate();
+    return $this->redirectToRoute('connexion');
   }
 
 
