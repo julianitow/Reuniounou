@@ -1,0 +1,19 @@
+{% extends "@Reuniounou/Default/template.html.twig" %}
+{% block body %}
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Lien</th>
+        </tr>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.titre }}</td>
+                <td>{{ event.description | nl2br }}</td>
+                <td><a href="{{ path('show_event', {token: event.tokenInvitation}) }}">{{ path('show_event', {token: event.tokenInvitation}) }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
