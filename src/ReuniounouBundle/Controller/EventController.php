@@ -31,9 +31,9 @@ class EventController extends Controller
             ->add('titre', TextType::class, ['label'=> 'Titre', 'attr' => ['class' => "form-control", 'placeholder' => "Titre"]])
             ->add('description', TextareaType::class, ['label'=> 'Description', 'attr' => ['class' => "form-control"]])
             ->add('date', DateTimeType::class, ['label' => 'Date', 'attr' => ['class' => 'form-control']])
-            ->add('adresse', TextType::class, ['label'=> 'Adresse', 'attr' => ['id' => 'adresse', 'class' => "form-control", 'placeholder' => "Adresse"]])
-            ->add('ville', TextType::class, ['label'=> 'Ville', 'attr' => ['class' => "form-control", 'placeholder' => "Ville"]])
-            ->add('private', CheckboxType::class, ['label' => 'Privé', 'attr' => ['class' => "form-control", 'placeholder' => "Ville"]])
+            ->add('adresse', TextType::class, ['label'=> 'Adresse', 'attr' => ['class' => "form-control", 'placeholder' => "Adresse"]])
+            ->add('ville', TextType::class, ['label'=> 'Ville', 'attr' => [ 'class' => "form-control", 'placeholder' => "Ville"]])
+            ->add('private', CheckboxType::class, ['label' => 'Privé', 'attr' => ['required' => 'false', 'class' => "form-control", 'placeholder' => "Ville"]])
             ->add('Ajouter l\'événement', SubmitType::class, ['attr' => ['class'=> 'btn btn-primary']]);
         $form = $formBuilder->getForm();
         $form->handleRequest($request);
@@ -75,26 +75,11 @@ class EventController extends Controller
         $event = $repositoryEvents->findOneByTokenInvitation($token);
         if ($event !== null) {
             $visibility = ($event->getPrivate()) ? 'privé' : 'public';
-        } else {
-            $visibility = 'undefined';
         }
         return $this->render('@Reuniounou/Event/show.html.twig', [
             'event' => $event,
             'visibility' => $visibility,
             'id' => $id
-        ]);
-    }
-
-    /**
-     * @Route("/event", name="manage_event")
-     */
-    public function manageAction(Request $request) {
-        $session = $request->getSession();
-        $manager = $this->getDoctrine()->getManager();
-        $repositoryEvents = $manager->getRepository('ReuniounouBundle:Evenement');
-        $events = $repositoryEvents->findByUtilisateur($session->get('id'));
-        return $this->render('@Reuniounou/Event/manage.html.twig', [
-            'events' => $events
         ]);
     }
 
@@ -106,5 +91,20 @@ class EventController extends Controller
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+    /**
+     * @Route("/event", name="manage_event")
+     */
+    public function manageAction(Request $request) {
+        $session = $request->getSession();
+        $id =$session->get('id');
+        $manager = $this->getDoctrine()->getManager();
+        $repositoryEvents = $manager->getRepository('ReuniounouBundle:Evenement');
+        $events = $repositoryEvents->findByUtilisateur($session->get('id'));
+        return $this->render('@Reuniounou/Event/manage.html.twig', [
+            'events' => $events,
+            'id' => $id
+        ]);
     }
 }
